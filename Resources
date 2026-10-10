@@ -1,0 +1,61 @@
+# 📚 Cybersecurity Learning Resources
+
+Beginner-friendly resources to keep learning. All of these are legal, educational platforms designed for practice.
+
+> ⚖️ Practice only on platforms, labs, and CTFs that give you permission to do so.
+
+## 🏁 Practice Platforms & CTFs
+
+| Resource | What it offers |
+|----------|----------------|
+| [picoCTF](https://picoctf.org/) | Beginner-friendly CTF platform with year-round practice |
+| [OverTheWire Wargames](https://overthewire.org/wargames/) | Learn Linux and security basics through games (start with *Bandit*) |
+| [TryHackMe](https://tryhackme.com/) | Guided learning paths and virtual labs |
+| [Hack The Box](https://www.hackthebox.com/) | Hands-on labs and challenges |
+| [CTFtime](https://ctftime.org/) | Calendar of CTF events worldwide |
+| [CryptoHack](https://cryptohack.org/) | Learn cryptography by solving challenges |
+
+## 📖 Guides & Learning Material
+
+| Resource | Topic |
+|----------|-------|
+| [CTF 101](https://ctf101.org/) | Introduction to CTF categories and techniques |
+| [Linux Journey](https://linuxjourney.com/) | Learn Linux step by step |
+| [PortSwigger Web Security Academy](https://portswigger.net/web-security) | Free web security training and labs |
+| [OWASP Top 10](https://owasp.org/www-project-top-ten/) | The most critical web application risks |
+| [Hacksplaining](https://www.hacksplaining.com/) | Interactive lessons on common vulnerabilities |
+| [Wireshark Documentation](https://www.wireshark.org/docs/) | Network analysis |
+| [explainshell](https://explainshell.com/) | Paste a shell command and see each part explained |
+
+## 🛠️ Tools
+
+| Tool | Link |
+|------|------|
+| CyberChef | <https://gchq.github.io/CyberChef/> |
+| Kali Linux tool list | <https://www.kali.org/tools/> |
+| Burp Suite Community | <https://portswigger.net/burp/communitydownload> |
+| Wireshark | <https://www.wireshark.org/> |
+
+## 🌍 OSINT
+
+| Resource | Notes |
+|----------|-------|
+| [OSINT Framework](https://osintframework.com/) | Directory of OSINT tools by category |
+| [Wayback Machine](https://web.archive.org/) | Archived versions of websites |
+| [TinEye](https://tineye.com/) | Reverse image search |
+
+## 🧭 Git & GitHub
+
+| Resource | Notes |
+|----------|-------|
+| [GitHub Docs: Get started](https://docs.github.com/en/get-started) | Official beginner guides |
+| [Pro Git book](https://git-scm.com/book/en/v2) | Free book on Git |
+| [Markdown Guide](https://www.markdownguide.org/) | Formatting reference |
+
+## 💡 Study Tips
+
+1. Take notes **while** solving, not afterward. You'll forget details.
+2. Save commands and screenshots as evidence.
+3. After each challenge, write what you learned in your own words.
+4. Read other people's writeups **after** attempting a challenge, and only when the event allows it.
+5. Respect each event's rules about sharing flags and solutions.
