@@ -1,0 +1,206 @@
+# 🧰 Tools & Commands Cheat Sheet
+
+A beginner-friendly reference of commands I use in CTFs. Each block explains **what the command does** so I understand it rather than just copy it.
+
+> ⚖️ **Ethics reminder:** Only run these commands against files and systems that the CTF organizers provided and authorized. Never use them on systems you don't own or have permission to test.
+
+**Contents:** [Linux](#-linux-basics) · [Web](#-web-exploitation) · [Cryptography](#-cryptography) · [Forensics](#-forensics) · [Steganography](#-steganography) · [OSINT](#-osint)
+
+---
+
+## 🐧 Linux Basics
+
+```bash
+pwd                      # Print Working Directory: where am I?
+ls -la                   # List all files (-a includes hidden ones) with details (-l)
+cd /path/to/folder       # Change directory (cd .. goes up one level)
+cat file.txt             # Print the contents of a file
+less file.txt            # Scroll through a long file (q to quit)
+head -n 20 file.txt      # Show the first 20 lines
+tail -n 20 file.txt      # Show the last 20 lines
+file mystery_file        # Identify what type of file it really is
+man ls                   # Open the manual page for a command
+history                  # Show previous commands you ran
+```
+
+### Searching
+
+```bash
+grep "keyword" file.txt          # Find lines containing "keyword"
+grep -rni "keyword" .            # -r search folders recursively, -n show line numbers, -i ignore case
+find . -name "*.txt"             # Find files by name in the current folder
+find / -name "notes.txt" 2>/dev/null   # Search the whole system; 2>/dev/null hides "permission denied" noise
+```
+
+### Permissions
+
+```bash
+ls -l file.sh            # Shows permissions like -rwxr-xr--  (owner / group / others)
+chmod +x file.sh         # Make a file executable
+chmod 644 file.txt       # Owner: read+write, everyone else: read only
+```
+
+Permission numbers: `r = 4`, `w = 2`, `x = 1`. So `7 = rwx`, `6 = rw-`, `4 = r--`.
+
+### Working with text
+
+```bash
+wc -l file.txt           # Count lines
+sort file.txt | uniq     # Sort lines, then remove duplicates (| "pipes" output into the next command)
+cut -d',' -f2 data.csv   # Split by comma and print column 2
+tr 'a-z' 'A-Z'           # Translate characters (here: lowercase to uppercase)
+```
+
+### Remote access (only to servers provided by the CTF)
+
+```bash
+ssh username@host -p 2222        # Connect over SSH; -p sets the port
+scp username@host:file.txt .     # Copy a file from the remote server to the current folder
+```
+
+---
+
+## 🌐 Web Exploitation
+
+**Browser DevTools** (press `F12`): inspect HTML, JavaScript, cookies (Application/Storage tab), and network requests (Network tab).
+
+```bash
+curl http://target/               # Fetch a page
+curl -i http://target/            # -i also shows the response headers
+curl -v http://target/            # -v verbose: shows request and response details
+curl -X POST -d "user=a&pass=b" http://target/login   # Send a POST request with form data
+curl -H "Header-Name: value" http://target/           # Send a custom header
+curl -b "session=abc123" http://target/               # Send a cookie
+```
+
+Useful files to check on authorized web challenges:
+
+- `view-source:` in the browser (the page's raw HTML)
+- `/robots.txt` (paths the site asks crawlers to avoid)
+- HTML comments and linked JavaScript files
+
+**Directory discovery** (only when the CTF explicitly allows it):
+
+```bash
+gobuster dir -u http://target/ -w wordlist.txt   # Try paths from a wordlist to find hidden pages
+ffuf -u http://target/FUZZ -w wordlist.txt       # Similar: FUZZ is replaced by each word
+```
+
+**Burp Suite** (Community Edition) lets you intercept and edit requests between your browser and an in-scope target.
+
+---
+
+## 🔐 Cryptography
+
+First, know the difference:
+
+| Concept | Meaning | Reversible? |
+|---------|---------|-------------|
+| **Encoding** | Changes data format (Base64, hex) | Yes, no key needed |
+| **Encryption** | Hides data using a key | Yes, with the key |
+| **Hashing** | One-way fingerprint (MD5, SHA-256) | No |
+
+```bash
+echo "SGVsbG8=" | base64 -d              # Decode Base64
+echo -n "Hello" | base64                 # Encode to Base64 (-n avoids adding a newline)
+echo "48656c6c6f" | xxd -r -p            # Convert hex back to text
+echo "Uryyb" | tr 'A-Za-z' 'N-ZA-Mn-za-m'   # ROT13 (shifts letters by 13)
+
+echo -n "text" | sha256sum               # Hash a string with SHA-256
+sha256sum file.bin                       # Hash a file (useful to verify integrity)
+md5sum file.bin                          # MD5 hash of a file
+openssl enc -d -aes-256-cbc -in secret.enc -out plain.txt   # Decrypt with OpenSSL (you'll be asked for the password the challenge provides)
+```
+
+Tips:
+- **[CyberChef](https://gchq.github.io/CyberChef/)** is great for chaining decoders ("Magic" can suggest what an encoding is).
+- If you are given a hash to crack, use only the wordlist and tools the challenge allows (e.g., `john` or `hashcat`).
+
+---
+
+## 🔎 Forensics
+
+```bash
+file evidence.bin                 # Identify the real file type from its contents
+exiftool photo.jpg                # Read metadata (author, dates, camera, GPS, etc.)
+strings evidence.bin | less       # Print readable text inside a binary file
+strings -n 8 evidence.bin         # Only show strings at least 8 characters long
+xxd evidence.bin | head           # Hex dump: view the first bytes ("magic bytes" show file type)
+binwalk evidence.bin              # Scan for embedded files inside a file
+binwalk -e evidence.bin           # -e extracts anything it finds
+foremost -i evidence.bin -o out/  # Carve files out of a disk image or blob
+sha256sum evidence.bin            # Record a hash so you can prove the file wasn't changed
+```
+
+**Network captures:**
+
+```bash
+tshark -r capture.pcap                          # Print packets from a capture file
+tshark -r capture.pcap -Y "http"                # -Y applies a display filter (here: HTTP only)
+tshark -r capture.pcap -Y "http" -T fields -e http.host -e http.request.uri   # Show specific fields
+```
+
+Or open the file in **Wireshark** and use filters such as `http`, `dns`, `ip.addr == 10.0.0.5`, or *Follow → TCP Stream*.
+
+> Best practice: work on a **copy** of the evidence and record its hash first.
+
+---
+
+## 🖼️ Steganography
+
+Steganography means hiding data inside other files (images, audio, etc.).
+
+```bash
+exiftool image.jpg                # Check metadata and comments first
+strings image.jpg | tail          # Look for text appended to the end of the file
+file image.png                    # Confirm the file type
+xxd image.jpg | head              # Check the header bytes
+binwalk image.jpg                 # Detect embedded files
+binwalk -e image.jpg              # Extract embedded files
+steghide info image.jpg           # Check whether a JPEG has embedded data (may ask for a passphrase)
+steghide extract -sf image.jpg    # Extract hidden data (-sf = stego file); use only a passphrase given by the challenge
+zsteg image.png                   # Check PNG/BMP files for common LSB hiding patterns
+pngcheck image.png                # Validate PNG structure and spot oddities
+```
+
+Also try: viewing the image at different zoom levels, checking color channels in an image editor, and reading the challenge description for hints about passwords.
+
+---
+
+## 🌍 OSINT
+
+OSINT = Open Source Intelligence: finding information from **public** sources.
+
+> ⚖️ In a CTF, stay inside the scenario you were given. Never investigate real private individuals.
+
+```bash
+whois example.com                 # Domain registration info
+dig example.com                   # DNS records
+dig example.com MX                # Look up a specific record type (MX = mail servers)
+nslookup example.com              # Another way to look up DNS
+exiftool photo.jpg                # Photos may contain location/time metadata
+```
+
+**Search operators (Google):**
+
+```text
+site:example.com keyword          # Search only within one site
+filetype:pdf keyword              # Find a specific file type
+intitle:"keyword"                 # Words in the page title
+"exact phrase"                    # Match an exact phrase
+```
+
+**Other techniques:**
+- Reverse image search (Google Lens, TinEye)
+- [Wayback Machine](https://web.archive.org/) for old versions of web pages
+- Note the source of every clue, and **verify using at least two independent sources**
+
+---
+
+## 🐍 Bonus: Handy Python One-Liners
+
+```bash
+python3 -c "print(bytes.fromhex('48656c6c6f').decode())"     # Hex to text
+python3 -c "import base64; print(base64.b64decode('SGVsbG8=').decode())"   # Base64 decode
+python3 -c "print(ord('A'), chr(65))"                        # Character <-> number (ASCII)
+```
