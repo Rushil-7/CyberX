@@ -1,0 +1,77 @@
+# ---------- Secrets & credentials (NEVER commit these) ----------
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+*.ppk
+credentials*
+secrets*
+*.token
+.netrc
+
+# ---------- OS files ----------
+.DS_Store
+Thumbs.db
+desktop.ini
+*~
+
+# ---------- Editors / IDEs ----------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# ---------- Node ----------
+node_modules/
+
+# ---------- Logs & temp files ----------
+*.log
+*.tmp
+*.bak
+tmp/
+temp/
+
+# ---------- Large / raw challenge artifacts ----------
+# Challenge files can be large, copyrighted, or contain live samples.
+# Keep them locally and describe them in your writeup instead.
+*.pcap
+*.pcapng
+*.iso
+*.img
+*.raw
+*.mem
+*.dmp
+*.E01
+*.vmdk
+*.ova
+*.exe
+*.bin
+*.elf
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+
+# Local folder for downloaded challenge files (optional convention)
+challenge-files/
+downloads/
+
+# ---------- Keep these ----------
+!.gitkeep
+!assets/screenshots/*.png
+!assets/screenshots/*.jpg
