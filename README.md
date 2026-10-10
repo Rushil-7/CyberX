@@ -163,8 +163,8 @@ cp writeup-template.md challenges/linux/my-challenge-name/README.md
 
 ## 👤 About
 
-**Name:** _Your Name_
+**Name:** RUSHIL
 **Event:** Cyber Induction CTF
-**GitHub:** [@your-username](https://github.com/your-username)
+**GitHub:** [@Rushil-07](https://github.com/your-username)
 
 _This repository is for educational purposes only._
