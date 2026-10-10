@@ -1,0 +1,107 @@
+# Challenge Name
+
+> Copy this file into `challenges/<category>/<challenge-name>/README.md` and replace everything in _italics_ or `<angle brackets>`.
+> Only write what you actually did and observed. Do not guess or invent results.
+
+---
+
+## 📋 Challenge Info
+
+| Field | Details |
+|-------|---------|
+| **Event** | Cyber Induction CTF |
+| **Category** | _Linux / Web Exploitation / Cryptography / Forensics / Steganography / OSINT_ |
+| **Difficulty** | _Easy / Medium / Hard (as labeled by the event)_ |
+| **Points** | _e.g. 100_ |
+| **Date solved** | _YYYY-MM-DD_ |
+| **Status** | _✅ Solved / 🟡 Partially solved / ❌ Unsolved_ |
+
+---
+
+## 📝 Challenge Description
+
+_Paste or paraphrase the description given by the organizers._
+
+**Files / links provided:**
+- _`filename.ext` (or "none")_
+- _Provided server / URL (only if given by the organizers)_
+
+---
+
+## 🧰 Tools Used
+
+- _Tool 1: why you used it_
+- _Tool 2: why you used it_
+
+---
+
+## 🔍 Initial Observations
+
+_What did you notice first? What clues did the title, description, or files give you?_
+
+---
+
+## 🪜 Step-by-Step Solution
+
+### Step 1: _Short title_
+
+_Explain what you did and why._
+
+```bash
+# Command you ran
+command --option argument
+```
+
+**What the command does:**
+_Explain each part in plain English._
+
+**Output / observation:**
+```text
+Paste the real output here (trim long output and note that you did).
+```
+
+📷 _Screenshot (optional):_
+`![Description of screenshot](screenshots/step1.png)`
+
+### Step 2: _Short title_
+
+_Continue in the same format. Add as many steps as you need._
+
+---
+
+## 🚩 Flag
+
+> Check the event rules first. If sharing flags isn't allowed, write `[REDACTED]`.
+
+```text
+<paste the flag exactly as you found it, or [REDACTED]>
+```
+
+---
+
+## 🧱 Dead Ends & Mistakes _(optional but valuable)_
+
+- _Something I tried that didn't work, and why_
+
+---
+
+## 💡 Key Learnings
+
+- _What concept or tool did you learn?_
+- _What would you do differently next time?_
+- _How could this type of issue be prevented in real life?_
+
+---
+
+## 🔗 References
+
+- _Links to docs, articles, or tools that helped you_
+
+---
+
+## ✅ Ethics Checklist
+
+- [ ] I only used files and systems provided by the CTF organizers
+- [ ] I followed the event rules
+- [ ] I checked whether publishing this writeup (and flag) is allowed
+- [ ] I removed any passwords, tokens, personal data, or private information
